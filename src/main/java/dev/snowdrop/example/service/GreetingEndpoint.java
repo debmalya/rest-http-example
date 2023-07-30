@@ -21,7 +21,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
+import dev.snowdrop.example.util.Quotes;
 import org.springframework.stereotype.Component;
+
+import java.util.Random;
 
 @Path("/greeting")
 @Component
@@ -29,7 +32,9 @@ public class GreetingEndpoint {
     @GET
     @Produces("application/json")
     public Greeting greeting(@QueryParam("name") @DefaultValue("World") String name) {
-        final String message = String.format(Greeting.FORMAT, name);
+        Random random = new Random();
+        int index = random.nextInt(Quotes.ALL_QUOTES.length);
+        final String message = String.format(Greeting.FORMAT, name,Quotes.ALL_QUOTES[index]);
         return new Greeting(message);
     }
 }
